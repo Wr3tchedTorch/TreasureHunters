@@ -1,0 +1,30 @@
+[gd_resource type="SpriteFrames" load_steps=6 format=3 uid="uid://gbsu1ruv30jq"]
+
+[ext_resource type="Texture2D" uid="uid://bw6lymmpwpy03" path="res://assets/captain clown/without sword/01-Idle/Idle 01.png" id="1_72phn"]
+[ext_resource type="Texture2D" uid="uid://dglrj8iaf3a53" path="res://assets/captain clown/without sword/01-Idle/Idle 02.png" id="2_d0pyd"]
+[ext_resource type="Texture2D" uid="uid://b4wnjfq4re3t2" path="res://assets/captain clown/without sword/01-Idle/Idle 03.png" id="3_vypme"]
+[ext_resource type="Texture2D" uid="uid://3q04o5681ti7" path="res://assets/captain clown/without sword/01-Idle/Idle 04.png" id="4_4outv"]
+[ext_resource type="Texture2D" uid="uid://t8sfodc055wb" path="res://assets/captain clown/without sword/01-Idle/Idle 05.png" id="5_8n7vm"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_72phn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_d0pyd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_vypme")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_4outv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_8n7vm")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}]
