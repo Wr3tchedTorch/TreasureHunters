@@ -10,7 +10,7 @@ tile_map_data = PackedByteArray("AAACAAQAAAABAAEAAAADAAQAAAABAAEAAAADAAUAAAABAAE
 tile_set = ExtResource("1_v0mc4")
 
 [node name="Pirate" parent="." instance=ExtResource("2_d6ul3")]
-position = Vector2(-26, -255)
+position = Vector2(-29, -231)
 
 [node name="Camera2D" type="Camera2D" parent="Pirate"]
-zoom = Vector2(2, 2)
+zoom = Vector2(4, 4)

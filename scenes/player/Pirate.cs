@@ -7,24 +7,22 @@ namespace Game.Player;
 public partial class Pirate : CharacterBody2D
 {
 
-    private VelocityComponent _velocityComponent;
+    private MovementComponent _movementComponent;    
 
     public override void _Ready()
     {
 
-        _velocityComponent = GetNode<VelocityComponent>("VelocityComponent");
+        _movementComponent = GetNode<MovementComponent>("VelocityComponent");
     }
 
-    public override void _Process(double delta)
-    {
+    public override void _PhysicsProcess(double delta)
+    {        
 
-        _velocityComponent.Walk(GetHorizontalMovementDirection());
+        if (Input.IsActionPressed("jump"))
+            _movementComponent.Jump();
+        _movementComponent.Walk(GetHorizontalMovementDirection());
     }
 
     public float GetHorizontalMovementDirection()
-    {
-        var left = Input.IsActionPressed("left") ? 1 : 0;
-        var right = Input.IsActionPressed("right") ? 1 : 0;
-        return right - left;
-    }
+        => Input.GetAxis("left", "right");
 }
