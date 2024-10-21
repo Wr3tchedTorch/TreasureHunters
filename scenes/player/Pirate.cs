@@ -12,7 +12,7 @@ public partial class Pirate : CharacterBody2D
     public override void _Ready()
     {
 
-        _movementComponent = GetNode<MovementComponent>("VelocityComponent");
+        _movementComponent = GetNode<MovementComponent>(nameof(MovementComponent));
     }
 
     public override void _PhysicsProcess(double delta)
