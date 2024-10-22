@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://gkx7mngp4ymq"
-path="res://.godot/imported/icon_gear.png-a1ab26d19b6f0d76dfce9c9b56727a7f.ctex"
+uid="uid://bniu6r3s2ax2q"
+path="res://.godot/imported/Idle 06.png-729878b7f92cd8f11eee82adf29388ef.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/godot icons/icon_gear.png"
-dest_files=["res://.godot/imported/icon_gear.png-a1ab26d19b6f0d76dfce9c9b56727a7f.ctex"]
+source_file="res://assets/pink star/Idle 06.png"
+dest_files=["res://.godot/imported/Idle 06.png-729878b7f92cd8f11eee82adf29388ef.ctex"]
 
 [params]
 

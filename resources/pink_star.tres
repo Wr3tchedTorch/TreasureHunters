@@ -1,0 +1,42 @@
+[gd_resource type="SpriteFrames" load_steps=9 format=3 uid="uid://x5j6qmhs0lac"]
+
+[ext_resource type="Texture2D" uid="uid://3f75fnr7b2g1" path="res://assets/pink star/Idle 01.png" id="1_86ucg"]
+[ext_resource type="Texture2D" uid="uid://cu3egv4qbbxqp" path="res://assets/pink star/Idle 02.png" id="2_ewksu"]
+[ext_resource type="Texture2D" uid="uid://b5rnjsvddjlnm" path="res://assets/pink star/Idle 03.png" id="3_7ypch"]
+[ext_resource type="Texture2D" uid="uid://bx5x1yra6kcdy" path="res://assets/pink star/Idle 04.png" id="4_k6kab"]
+[ext_resource type="Texture2D" uid="uid://px36svjiusur" path="res://assets/pink star/Idle 05.png" id="5_l1y7d"]
+[ext_resource type="Texture2D" uid="uid://bniu6r3s2ax2q" path="res://assets/pink star/Idle 06.png" id="6_0ffm5"]
+[ext_resource type="Texture2D" uid="uid://btg5j73yggvus" path="res://assets/pink star/Idle 07.png" id="7_s10uf"]
+[ext_resource type="Texture2D" uid="uid://jt5xwibog7yd" path="res://assets/pink star/Idle 08.png" id="8_yks4l"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_86ucg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_ewksu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_7ypch")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_k6kab")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_l1y7d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_0ffm5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_s10uf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_yks4l")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}]

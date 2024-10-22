@@ -37,6 +37,16 @@ naming/scene_name_casing=1
 
 enabled=PackedStringArray("res://addons/dev_time_tracker/plugin.cfg", "res://addons/fabimakesgames.embed_game/plugin.cfg")
 
+[file_customization]
+
+folder_colors={
+"res://addons/": "orange",
+"res://assets/": "yellow",
+"res://resources/": "green",
+"res://scenes/": "blue",
+"res://scenes/enemy/": "blue"
+}
+
 [input]
 
 left={

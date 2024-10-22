@@ -3,11 +3,11 @@ using Godot;
 namespace Game.Component;
 
 [Icon("res://assets/godot icons/icon_gear.png")]
-public partial class MovementComponent : Node2D
+public partial class MovementComponent : Node
 {
 
 	[ExportGroup("Horizontal Movement")]
-	[Export] private float _movementSpeed = 180.0f;
+	[Export] public float MovementSpeed { get; private set; } = 180.0f;
 	[Export] private float _acceleration = 40.0f;
 	[Export] private float _friction = 20.0f;
 
@@ -73,6 +73,11 @@ public partial class MovementComponent : Node2D
 		_velocity.Y = _jumpVelocity;
 	}
 
+	public void SetSpeed(float newSpeed)
+	{
+		MovementSpeed = newSpeed;
+	}
+
 	private float GetGravity()
 	{
 
@@ -83,7 +88,7 @@ public partial class MovementComponent : Node2D
 	}
 
 	private void HorizontalAccel(float direction)
-		=> _velocity.X = Mathf.MoveToward(_velocity.X, direction * _movementSpeed, _acceleration);
+		=> _velocity.X = Mathf.MoveToward(_velocity.X, direction * MovementSpeed, _acceleration);
 
 	private void AddFriction()
 		=> _velocity.X = Mathf.MoveToward(_velocity.X, 0, _friction);

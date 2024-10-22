@@ -21,7 +21,11 @@ public partial class StateMachine : Node
 		foreach (Node child in GetChildren())
 		{
 			if (child is BaseState state)
+			{
 				_states.Add(state.Name, state);
+				if (InitialState == null)
+					InitialState ??= state;
+			}
 		}
 		CurrentState = InitialState;
 		CurrentState.Enter();
