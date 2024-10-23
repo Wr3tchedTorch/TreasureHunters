@@ -8,36 +8,28 @@ namespace Game.StateMachine.State;
 public partial class WanderState : BaseState
 {
 
+	private const float TURNING_DELAY = .2f;
+
 	[Export] private MovementComponent _movementComponent;
-	[Export] private RayCast2D _frontRayCast;
-	[Export] private RayCast2D _rightRayCast;
-	[Export] private RayCast2D _leftRayCast;
-	[Export] private double _movementMaxDelay = 1.5;
-	[Export] private double _movementMinDelay = 0.3;
+	[Export] private Area2D _groundCollisionDetector;
 
 	[Signal] public delegate void EnemyInSightEventHandler();
 
-	private Timer _movementTimer;
-	private Timer _turningTimer;
 	private readonly Random _RNG = new();
 	private float _direction;
-	private bool _canTurn = true;
+	private bool _canFlip = true;
 
-	public override void Enter()
+	public async override void Enter()
 	{
 
-		_turningTimer = GetNode<Timer>("TurningTimer");
-		_movementTimer = GetNode<Timer>("MovementTimer");
+		_groundCollisionDetector.BodyExited += OnGroundBodyExited;
 
-		_turningTimer.WaitTime = 0.5;
-		_turningTimer.Timeout += OnTurningTimerTimeout;
-
-		_movementTimer.WaitTime = GetRandomWaitTime();
-		_movementTimer.Timeout += OnMovementTimerTimeout;
-		_movementTimer.Start();
-
-		_direction = GetRandomDirection();
+		_direction = -1;
 		_movementComponent.SetSpeed(_movementComponent.MovementSpeed / 2.5f);
+
+		_canFlip = false;
+		await ToSignal(GetTree().CreateTimer(TURNING_DELAY), "timeout");
+		_canFlip = true;
 	}
 
 	public override void Exit()
@@ -47,15 +39,8 @@ public partial class WanderState : BaseState
 
 	public override void PhysicsUpdate(double delta)
 	{
-
-		bool isAboutToFall = !_rightRayCast.IsColliding() || !_leftRayCast.IsColliding();
-		if (_canTurn && (isAboutToFall || _frontRayCast.IsColliding()))
-		{
-			GD.Print("TURNING!!!");
-			_direction *= -1;
-			_canTurn = false;
-			_turningTimer.Start();
-		}
+		if (!_movementComponent.ParentIsOnFloor())
+			return;
 
 		_movementComponent.Walk(_direction);
 	}
@@ -74,15 +59,20 @@ public partial class WanderState : BaseState
 		return randomDirection;
 	}
 
-	private double GetRandomWaitTime()
-		=> Math.Min((_RNG.NextDouble() * _movementMaxDelay) + _movementMinDelay, _movementMaxDelay);
-
-	private void OnMovementTimerTimeout()
+	private async void OnGroundBodyExited(Node2D body)
 	{
-	}
 
-	private void OnTurningTimerTimeout()
-	{
-		_canTurn = true;
+		GD.Print(_canFlip);
+
+		if (!_movementComponent.ParentIsOnFloor() || !_canFlip)
+			return;
+
+		_direction *= -1;
+
+		_canFlip = false;
+		GD.Print("Waiting for timer");
+		await ToSignal(GetTree().CreateTimer(TURNING_DELAY), "timeout");
+		GD.Print("Timer Timeout");
+		_canFlip = true;
 	}
 }

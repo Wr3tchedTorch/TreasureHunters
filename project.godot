@@ -31,6 +31,7 @@ project/assembly_name="TreasureHunters"
 
 [editor]
 
+movie_writer/movie_file="C:/Users/ericm/Desktop/01_Work/01_Game Dev/01_Projects/TreasureHunters/movies/main.avi"
 naming/scene_name_casing=1
 
 [editor_plugins]
@@ -42,6 +43,7 @@ enabled=PackedStringArray("res://addons/dev_time_tracker/plugin.cfg", "res://add
 folder_colors={
 "res://addons/": "orange",
 "res://assets/": "yellow",
+"res://movies/": "gray",
 "res://resources/": "green",
 "res://scenes/": "blue",
 "res://scenes/enemy/": "blue"
@@ -72,6 +74,7 @@ jump={
 2d_physics/layer_1="player"
 2d_physics/layer_2="enemy"
 2d_physics/layer_3="terrain"
+2d_physics/layer_4="terrain_navigation"
 
 [rendering]
 

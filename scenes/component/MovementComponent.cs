@@ -6,6 +6,12 @@ namespace Game.Component;
 public partial class MovementComponent : Node
 {
 
+	[ExportGroup("Flipping")]
+	[Export] private bool _isSpriteLeftOriented;
+	[Export] private AnimatedSprite2D[] _animatedSprites;
+	[Export] private Sprite2D[] _sprites;
+	[Export] private CollisionShape2D[] _collisionShapes;
+
 	[ExportGroup("Horizontal Movement")]
 	[Export] public float MovementSpeed { get; private set; } = 180.0f;
 	[Export] private float _acceleration = 40.0f;
@@ -60,6 +66,8 @@ public partial class MovementComponent : Node
 			AddFriction();
 			return;
 		}
+
+		FlipH(direction == -1);
 		HorizontalAccel(direction);
 	}
 
@@ -78,6 +86,9 @@ public partial class MovementComponent : Node
 		MovementSpeed = newSpeed;
 	}
 
+	public bool ParentIsOnFloor()
+		=> _parent.IsOnFloor();
+
 	private float GetGravity()
 	{
 
@@ -85,6 +96,50 @@ public partial class MovementComponent : Node
 			return 0;
 
 		return _velocity.Y < 0 ? _jumpGravity : _fallGravity;
+	}
+
+	private void FlipH(bool flip)
+	{
+
+		if (_sprites.Length > 0)
+			FlipSprites(flip, _sprites);
+
+		if (_animatedSprites.Length > 0)
+			FlipSprites(flip, _animatedSprites);
+
+		if (_collisionShapes.Length <= 0)
+			return;
+
+		FlipCollisionShapes(flip);
+	}
+
+	private void FlipSprites(bool flip, Node2D[] arr)
+	{
+
+		if (_isSpriteLeftOriented)
+			flip = !flip;
+
+		foreach (var sprite in arr)
+		{
+
+			if (sprite is Sprite2D sprite2D)
+				sprite2D.FlipH = flip;
+			if (sprite is AnimatedSprite2D animSprite2D)
+				animSprite2D.FlipH = flip;
+		}
+	}
+
+	private void FlipCollisionShapes(bool flip)
+	{
+
+		foreach (CollisionShape2D collisionShape in _collisionShapes)
+		{
+			Vector2 position = collisionShape.Position;
+
+			position.X = flip ? -Mathf.Abs(position.X) : Mathf.Abs(position.X);
+
+			collisionShape.Position = position;
+		}
 	}
 
 	private void HorizontalAccel(float direction)

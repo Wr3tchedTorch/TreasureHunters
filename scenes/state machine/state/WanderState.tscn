@@ -4,7 +4,3 @@
 
 [node name="WanderState" type="Node"]
 script = ExtResource("1_nxb2u")
-
-[node name="MovementTimer" type="Timer" parent="."]
-
-[node name="TurningTimer" type="Timer" parent="."]
