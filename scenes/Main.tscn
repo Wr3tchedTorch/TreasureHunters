@@ -10,10 +10,21 @@ tile_map_data = PackedByteArray("AAACAAQAAAABAAEAAAADAAQAAAABAAEAAAADAAUAAAABAAE
 tile_set = ExtResource("1_v0mc4")
 
 [node name="PinkStar" parent="." instance=ExtResource("3_jnnuj")]
-position = Vector2(-100, -97)
+position = Vector2(29, -98)
+
+[node name="WanderState" parent="PinkStar/StateMachine" index="0"]
+_initialDirection = -1
 
 [node name="Camera2D" type="Camera2D" parent="PinkStar"]
 zoom = Vector2(4, 4)
 
 [node name="PinkStar2" parent="." instance=ExtResource("3_jnnuj")]
-position = Vector2(-162, -99)
+position = Vector2(-145, -98)
+
+[node name="WanderState" parent="PinkStar2/StateMachine" index="0"]
+_initialDirection = 1
+
+[editable path="PinkStar"]
+[editable path="PinkStar/StateMachine/WanderState"]
+[editable path="PinkStar2"]
+[editable path="PinkStar2/StateMachine/WanderState"]

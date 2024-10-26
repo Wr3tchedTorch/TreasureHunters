@@ -26,7 +26,7 @@ public partial class MovementComponent : Node
 	[Export] private float _coyoteTime = 0.25f;
 
 	private CharacterBody2D _parent;
-	private Vector2 _velocity = Vector2.Zero;
+	private Vector2 _velocity;
 	private float _jumpVelocity;
 	private float _jumpGravity;
 	private float _fallGravity;
