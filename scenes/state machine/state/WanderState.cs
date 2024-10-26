@@ -8,12 +8,14 @@ namespace Game.StateMachine.State;
 public partial class WanderState : BaseState
 {
 
-	private readonly float TURNING_DELAY = .2f;
+	private readonly float TURNING_DELAY = 0.1f;
+	private readonly float MIN_WANDER_SLOWNESS = 4.5f;
+	private readonly float MAX_WANDER_SLOWNESS = 7.5f;
 
 	[Export] private MovementComponent _movementComponent;
 	[Export] private Area2D _collisionDetector;
 	[Export] private float _minIdleDelayBeforeTurning = 0.25f;
-	[Export] private float _maxIdleDelayBeforeTurning = 3.1f;
+	[Export] private float _maxIdleDelayBeforeTurning = 6.5f;
 	[Export(PropertyHint.Range, "-1,1")] private int _initialDirection;
 
 	[Signal] public delegate void EnemyInSightEventHandler();
@@ -23,7 +25,7 @@ public partial class WanderState : BaseState
 	private float _previousDirection;
 	private bool _canTurn = true;
 
-	private float WanderSpeed => _movementComponent.MovementSpeed / Mathf.Clamp((float)_RNG.NextDouble() * 5f, 3.5f, 5.2f);
+	private float WanderSpeed => _movementComponent.MovementSpeed / Mathf.Clamp((float)_RNG.NextDouble() * MAX_WANDER_SLOWNESS, MIN_WANDER_SLOWNESS, MAX_WANDER_SLOWNESS);
 	private float TurningDelay => Mathf.Clamp((float)_RNG.NextDouble() * _maxIdleDelayBeforeTurning, _minIdleDelayBeforeTurning, _maxIdleDelayBeforeTurning);
 
 	public override void Enter()
@@ -50,9 +52,9 @@ public partial class WanderState : BaseState
 		_movementComponent.Walk(_direction);
 	}
 
-	private async void Turn()
+	private async void Turn(bool isIgnoringCanTurn)
 	{
-		if (!_movementComponent.ParentIsOnFloor() || !_canTurn)
+		if (!_movementComponent.ParentIsOnFloor() || (!isIgnoringCanTurn && !_canTurn))
 			return;
 
 		_previousDirection = _direction;
@@ -83,12 +85,12 @@ public partial class WanderState : BaseState
 	private void OnCollisionDetectorBodyEntered(Node2D body)
 	{
 		if (body is CharacterBody2D)
-			Turn();
+			Turn(true);
 	}
 
 	private void OnCollisionDetectorBodyExited(Node2D body)
 	{
 		if (body is not CharacterBody2D)
-			Turn();
+			Turn(false);
 	}
 }

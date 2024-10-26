@@ -8,11 +8,18 @@ namespace Game.Component;
 public partial class MovementComponent : Node
 {
 
+	private readonly string ANIMATION_IDLE = "idle";
+	private readonly string ANIMATION_WALK = "walk";
+
+	[ExportGroup("Dependencies")]
+	[Export] private AnimationComponent _animationComponent;
+
 	[ExportGroup("Flipping")]
 	[Export] private bool _isSpriteLeftOriented;
 	[Export] private AnimatedSprite2D[] _animatedSprites;
 	[Export] private Sprite2D[] _sprites;
 	[Export] private CollisionShape2D[] _collisionShapes;
+	[Export] private CollisionPolygon2D[] _collisionPolygons;
 
 	[ExportGroup("Horizontal Movement")]
 	[Export] public float MovementSpeed { get; private set; } = 180.0f;
@@ -65,10 +72,12 @@ public partial class MovementComponent : Node
 
 		if (direction == 0)
 		{
+			_animationComponent.SetAnimation(ANIMATION_IDLE);
 			AddFriction();
 			return;
 		}
 
+		_animationComponent.SetAnimation(ANIMATION_WALK);
 		FlipH(direction == -1);
 		HorizontalAccel(direction);
 	}
@@ -108,6 +117,21 @@ public partial class MovementComponent : Node
 
 		if (_collisionShapes.Length > 0)
 			FlipCollisionShapes(flip);
+
+		GD.Print(_collisionPolygons.Length);
+		if (_collisionPolygons.Length > 0)
+			FlipCollisionPolygons(flip);
+	}
+
+	private void FlipCollisionPolygons(bool flip)
+	{
+
+		foreach (CollisionPolygon2D polygon in _collisionPolygons)
+		{
+			var scale = polygon.Scale;
+			scale.X = flip ? -1 : 1;
+			polygon.Scale = scale;
+		}
 	}
 
 	private void FlipSprites(bool flip, Node2D[] arr)
