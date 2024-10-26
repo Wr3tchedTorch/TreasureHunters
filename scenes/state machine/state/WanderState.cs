@@ -8,28 +8,32 @@ namespace Game.StateMachine.State;
 public partial class WanderState : BaseState
 {
 
-	private const float TURNING_DELAY = .2f;
+	private readonly float TURNING_DELAY = .2f;
 
 	[Export] private MovementComponent _movementComponent;
-	[Export] private Area2D _groundCollisionDetector;
+	[Export] private Area2D _collisionDetector;
+	[Export] private RayCast2D _enemiesSight;
+	[Export] private float _minIdleDelayBeforeTurning;
+	[Export] private float _maxIdleDelayBeforeTurning;
 
 	[Signal] public delegate void EnemyInSightEventHandler();
 
 	private readonly Random _RNG = new();
 	private float _direction;
-	private bool _canFlip = true;
+	private float _previousDirection;
+	private bool _canTurn = true;
 
 	public async override void Enter()
 	{
 
-		_groundCollisionDetector.BodyExited += OnGroundBodyExited;
+		_collisionDetector.BodyExited += OnCollisionDetectorBodyExited;
 
-		_direction = -1;
+		_direction = GetRandomDirection();
 		_movementComponent.SetSpeed(_movementComponent.MovementSpeed / 2.5f);
 
-		_canFlip = false;
+		_canTurn = false;
 		await ToSignal(GetTree().CreateTimer(TURNING_DELAY), "timeout");
-		_canFlip = true;
+		_canTurn = true;
 	}
 
 	public override void Exit()
@@ -47,7 +51,25 @@ public partial class WanderState : BaseState
 
 	public override void Update(double delta)
 	{
-		// throw new NotImplementedException();
+		if (_enemiesSight.IsColliding())
+			Turn();
+	}
+
+	private async void Turn()
+	{
+		if (!_movementComponent.ParentIsOnFloor() || !_canTurn)
+			return;
+
+		_previousDirection = _direction;
+		_direction = 0;
+
+		float awaitTimer = Math.Min(((float)_RNG.NextDouble() * _maxIdleDelayBeforeTurning) + _minIdleDelayBeforeTurning, _maxIdleDelayBeforeTurning);
+		await ToSignal(GetTree().CreateTimer(awaitTimer), "timeout");
+		_direction = -_previousDirection;
+
+		_canTurn = false;
+		await ToSignal(GetTree().CreateTimer(TURNING_DELAY), "timeout");
+		_canTurn = true;
 	}
 
 	private int GetRandomDirection()
@@ -59,20 +81,9 @@ public partial class WanderState : BaseState
 		return randomDirection;
 	}
 
-	private async void OnGroundBodyExited(Node2D body)
+	private void OnCollisionDetectorBodyExited(Node2D body)
 	{
-
-		GD.Print(_canFlip);
-
-		if (!_movementComponent.ParentIsOnFloor() || !_canFlip)
-			return;
-
-		_direction *= -1;
-
-		_canFlip = false;
-		GD.Print("Waiting for timer");
-		await ToSignal(GetTree().CreateTimer(TURNING_DELAY), "timeout");
-		GD.Print("Timer Timeout");
-		_canFlip = true;
+		if (body is not CharacterBody2D)
+			Turn();
 	}
 }

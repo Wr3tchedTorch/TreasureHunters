@@ -1,4 +1,6 @@
 using Godot;
+using Game.Collision;
+using System.Linq;
 
 namespace Game.Component;
 
@@ -73,7 +75,6 @@ public partial class MovementComponent : Node
 
 	public void Jump()
 	{
-
 		if (!_canJump)
 			return;
 
@@ -82,9 +83,7 @@ public partial class MovementComponent : Node
 	}
 
 	public void SetSpeed(float newSpeed)
-	{
-		MovementSpeed = newSpeed;
-	}
+		=> MovementSpeed = newSpeed;
 
 	public bool ParentIsOnFloor()
 		=> _parent.IsOnFloor();
@@ -107,10 +106,8 @@ public partial class MovementComponent : Node
 		if (_animatedSprites.Length > 0)
 			FlipSprites(flip, _animatedSprites);
 
-		if (_collisionShapes.Length <= 0)
-			return;
-
-		FlipCollisionShapes(flip);
+		if (_collisionShapes.Length > 0)
+			FlipCollisionShapes(flip);
 	}
 
 	private void FlipSprites(bool flip, Node2D[] arr)
@@ -131,14 +128,9 @@ public partial class MovementComponent : Node
 
 	private void FlipCollisionShapes(bool flip)
 	{
-
-		foreach (CollisionShape2D collisionShape in _collisionShapes)
+		foreach (CollisionFlipper collisionShape in _collisionShapes.Cast<CollisionFlipper>())
 		{
-			Vector2 position = collisionShape.Position;
-
-			position.X = flip ? -Mathf.Abs(position.X) : Mathf.Abs(position.X);
-
-			collisionShape.Position = position;
+			collisionShape.Flip(flip);
 		}
 	}
 

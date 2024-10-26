@@ -41,6 +41,7 @@ enabled=PackedStringArray("res://addons/dev_time_tracker/plugin.cfg", "res://add
 [file_customization]
 
 folder_colors={
+"res://Scripts/": "red",
 "res://addons/": "orange",
 "res://assets/": "yellow",
 "res://movies/": "gray",

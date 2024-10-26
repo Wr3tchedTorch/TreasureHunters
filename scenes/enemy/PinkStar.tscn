@@ -1,10 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://c6h52irp0c4yw"]
+[gd_scene load_steps=10 format=3 uid="uid://c6h52irp0c4yw"]
 
 [ext_resource type="Script" path="res://scenes/enemy/PinkStar.cs" id="1_rwm2x"]
 [ext_resource type="PackedScene" uid="uid://drlgmts4jiv7h" path="res://scenes/state machine/StateMachine.tscn" id="2_apoxg"]
 [ext_resource type="PackedScene" uid="uid://c1seksmprla6c" path="res://scenes/state machine/state/WanderState.tscn" id="3_5xwr0"]
 [ext_resource type="PackedScene" uid="uid://jdeomxi3f2de" path="res://scenes/component/MovementComponent.tscn" id="4_5273v"]
 [ext_resource type="SpriteFrames" uid="uid://x5j6qmhs0lac" path="res://resources/pink_star.tres" id="5_qmfsc"]
+[ext_resource type="Script" path="res://Scripts/Collision/CollisionFlipper.cs" id="6_minfk"]
+[ext_resource type="Script" path="res://Scripts/Collision/RayCastFlipper.cs" id="7_0vku0"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_86kda"]
 radius = 6.0
@@ -21,9 +23,12 @@ script = ExtResource("1_rwm2x")
 [node name="StateMachine" parent="." node_paths=PackedStringArray("InitialState") instance=ExtResource("2_apoxg")]
 InitialState = NodePath("WanderState")
 
-[node name="WanderState" parent="StateMachine" node_paths=PackedStringArray("_movementComponent", "_groundCollisionDetector") instance=ExtResource("3_5xwr0")]
+[node name="WanderState" parent="StateMachine" node_paths=PackedStringArray("_movementComponent", "_collisionDetector", "_enemiesSight") instance=ExtResource("3_5xwr0")]
 _movementComponent = NodePath("../../MovementComponent")
-_groundCollisionDetector = NodePath("../../Area2D")
+_collisionDetector = NodePath("../../Area2D")
+_enemiesSight = NodePath("../../RayCast2D")
+_minIdleDelayBeforeTurning = 0.5
+_maxIdleDelayBeforeTurning = 2.0
 
 [node name="MovementComponent" parent="." node_paths=PackedStringArray("_animatedSprites", "_sprites", "_collisionShapes") instance=ExtResource("4_5273v")]
 _isSpriteLeftOriented = true
@@ -43,11 +48,23 @@ position = Vector2(0, -10)
 shape = SubResource("CapsuleShape2D_86kda")
 
 [node name="Area2D" type="Area2D" parent="."]
-collision_layer = 0
+collision_layer = 2
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(17.5, -1.5)
 shape = SubResource("RectangleShape2D_e2j12")
+script = ExtResource("6_minfk")
+_leftPosition = Vector2(-17.5, -1.5)
+_rightPosition = Vector2(17.5, -1.5)
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+light_mask = 0
+position = Vector2(0, -9)
+target_position = Vector2(50, 0)
+collision_mask = 2
+script = ExtResource("7_0vku0")
+_leftPosition = Vector2(-50, 0)
+_rightPosition = Vector2(50, 0)
 
 [editable path="StateMachine/WanderState"]
