@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://5koitgvxffeu"]
+
+[ext_resource type="Script" path="res://scenes/component/FlippingComponent.cs" id="1_p4isu"]
+
+[node name="FlippingComponent" type="Node" node_paths=PackedStringArray("_animatedSprites", "_sprites", "_collisionShapes", "_collisionPolygons")]
+script = ExtResource("1_p4isu")
+_animatedSprites = []
+_sprites = []
+_collisionShapes = []
+_collisionPolygons = []

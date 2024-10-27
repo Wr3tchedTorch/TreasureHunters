@@ -8,7 +8,7 @@ namespace Game.StateMachine.State;
 public partial class WanderState : BaseState
 {
 
-	private readonly float TURNING_DELAY = 0.1f;
+	private readonly float TURNING_DELAY = 0.25f;
 	private readonly float MIN_WANDER_SLOWNESS = 4.5f;
 	private readonly float MAX_WANDER_SLOWNESS = 7.5f;
 
@@ -25,7 +25,7 @@ public partial class WanderState : BaseState
 	private float _previousDirection;
 	private bool _canTurn = true;
 
-	private float WanderSpeed => _movementComponent.MovementSpeed / Mathf.Clamp((float)_RNG.NextDouble() * MAX_WANDER_SLOWNESS, MIN_WANDER_SLOWNESS, MAX_WANDER_SLOWNESS);
+	private float WanderSpeed => _movementComponent.Speed / Mathf.Clamp((float)_RNG.NextDouble() * MAX_WANDER_SLOWNESS, MIN_WANDER_SLOWNESS, MAX_WANDER_SLOWNESS);
 	private float TurningDelay => Mathf.Clamp((float)_RNG.NextDouble() * _maxIdleDelayBeforeTurning, _minIdleDelayBeforeTurning, _maxIdleDelayBeforeTurning);
 
 	public override void Enter()
@@ -35,7 +35,7 @@ public partial class WanderState : BaseState
 		_collisionDetector.BodyEntered += OnCollisionDetectorBodyEntered;
 
 		_direction = _initialDirection != 0 ? _initialDirection : GetRandomDirection();
-		_movementComponent.SetSpeed(WanderSpeed);
+		_movementComponent.Speed = WanderSpeed;
 
 		StartCanTurnTimer();
 	}
@@ -57,6 +57,7 @@ public partial class WanderState : BaseState
 		if (!_movementComponent.ParentIsOnFloor() || (!isIgnoringCanTurn && !_canTurn))
 			return;
 
+		GD.Print($"{nameof(isIgnoringCanTurn)}: {isIgnoringCanTurn} | {nameof(_canTurn)}: {_canTurn}");
 		_previousDirection = _direction;
 		_direction = 0;
 

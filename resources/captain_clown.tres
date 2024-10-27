@@ -1,30 +1,59 @@
-[gd_resource type="SpriteFrames" load_steps=6 format=3 uid="uid://gbsu1ruv30jq"]
+[gd_resource type="SpriteFrames" load_steps=12 format=3 uid="uid://gbsu1ruv30jq"]
 
-[ext_resource type="Texture2D" uid="uid://bw6lymmpwpy03" path="res://assets/captain clown/without sword/01-Idle/Idle 01.png" id="1_72phn"]
-[ext_resource type="Texture2D" uid="uid://dglrj8iaf3a53" path="res://assets/captain clown/without sword/01-Idle/Idle 02.png" id="2_d0pyd"]
-[ext_resource type="Texture2D" uid="uid://b4wnjfq4re3t2" path="res://assets/captain clown/without sword/01-Idle/Idle 03.png" id="3_vypme"]
-[ext_resource type="Texture2D" uid="uid://3q04o5681ti7" path="res://assets/captain clown/without sword/01-Idle/Idle 04.png" id="4_4outv"]
-[ext_resource type="Texture2D" uid="uid://t8sfodc055wb" path="res://assets/captain clown/without sword/01-Idle/Idle 05.png" id="5_8n7vm"]
+[ext_resource type="Texture2D" uid="uid://bw6lymmpwpy03" path="res://assets/captain clown/without sword/idle/Idle 01.png" id="1_liknu"]
+[ext_resource type="Texture2D" uid="uid://dglrj8iaf3a53" path="res://assets/captain clown/without sword/idle/Idle 02.png" id="2_vvh8q"]
+[ext_resource type="Texture2D" uid="uid://b4wnjfq4re3t2" path="res://assets/captain clown/without sword/idle/Idle 03.png" id="3_825t6"]
+[ext_resource type="Texture2D" uid="uid://3q04o5681ti7" path="res://assets/captain clown/without sword/idle/Idle 04.png" id="4_hgydq"]
+[ext_resource type="Texture2D" uid="uid://t8sfodc055wb" path="res://assets/captain clown/without sword/idle/Idle 05.png" id="5_ux1nd"]
+[ext_resource type="Texture2D" uid="uid://d2a5fyddhfnh0" path="res://assets/captain clown/without sword/walk/Run 01.png" id="6_rxguc"]
+[ext_resource type="Texture2D" uid="uid://ryxm51qsl4dn" path="res://assets/captain clown/without sword/walk/Run 02.png" id="7_uikyc"]
+[ext_resource type="Texture2D" uid="uid://niqr6atnieqc" path="res://assets/captain clown/without sword/walk/Run 03.png" id="8_2tyob"]
+[ext_resource type="Texture2D" uid="uid://cuumrh5nmbnc8" path="res://assets/captain clown/without sword/walk/Run 04.png" id="9_4cjvx"]
+[ext_resource type="Texture2D" uid="uid://ixvonm8p32qi" path="res://assets/captain clown/without sword/walk/Run 05.png" id="10_rawk3"]
+[ext_resource type="Texture2D" uid="uid://dbnfywfu4lpjk" path="res://assets/captain clown/without sword/walk/Run 06.png" id="11_17qg7"]
 
 [resource]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_72phn")
+"texture": ExtResource("1_liknu")
 }, {
 "duration": 1.0,
-"texture": ExtResource("2_d0pyd")
+"texture": ExtResource("2_vvh8q")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_vypme")
+"texture": ExtResource("3_825t6")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_4outv")
+"texture": ExtResource("4_hgydq")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_8n7vm")
+"texture": ExtResource("5_ux1nd")
 }],
 "loop": true,
 "name": &"idle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_rxguc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_uikyc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_2tyob")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_4cjvx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_rawk3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_17qg7")
+}],
+"loop": true,
+"name": &"walk",
 "speed": 10.0
 }]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://c6h52irp0c4yw"]
+[gd_scene load_steps=15 format=3 uid="uid://c6h52irp0c4yw"]
 
 [ext_resource type="Script" path="res://scenes/enemy/PinkStar.cs" id="1_rwm2x"]
 [ext_resource type="PackedScene" uid="uid://drlgmts4jiv7h" path="res://scenes/state machine/StateMachine.tscn" id="2_apoxg"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://jdeomxi3f2de" path="res://scenes/component/MovementComponent.tscn" id="4_5273v"]
 [ext_resource type="PackedScene" uid="uid://bo3hdb76j6kq4" path="res://scenes/component/AnimationComponent.tscn" id="4_naf0s"]
 [ext_resource type="SpriteFrames" uid="uid://x5j6qmhs0lac" path="res://resources/pink_star.tres" id="5_qmfsc"]
+[ext_resource type="PackedScene" uid="uid://cwmiiiyit4o1p" path="res://scenes/component/VelocityComponent.tscn" id="6_lehh2"]
+[ext_resource type="PackedScene" uid="uid://5koitgvxffeu" path="res://scenes/component/FlippingComponent.tscn" id="7_mew35"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_86kda"]
 radius = 6.0
@@ -45,12 +47,16 @@ _initialAnimation = "idle"
 _animatedSprite2D = NodePath("../AnimatedSprite2D")
 AnimationNames = PackedStringArray("idle", "walk")
 
-[node name="MovementComponent" parent="." node_paths=PackedStringArray("_animationComponent", "_animatedSprites", "_sprites", "_collisionShapes", "_collisionPolygons") instance=ExtResource("4_5273v")]
+[node name="MovementComponent" parent="." node_paths=PackedStringArray("_animationComponent", "_velocityComponent", "_flippingComponent") instance=ExtResource("4_5273v")]
 _animationComponent = NodePath("../AnimationComponent")
+_velocityComponent = NodePath("../VelocityComponent")
+_flippingComponent = NodePath("../FlippingComponent")
+
+[node name="VelocityComponent" parent="." instance=ExtResource("6_lehh2")]
+
+[node name="FlippingComponent" parent="." node_paths=PackedStringArray("_animatedSprites", "_collisionPolygons") instance=ExtResource("7_mew35")]
 _isSpriteLeftOriented = true
 _animatedSprites = [NodePath("../AnimatedSprite2D")]
-_sprites = []
-_collisionShapes = []
 _collisionPolygons = [NodePath("../Area2D/CollisionPolygon2D")]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -68,7 +74,7 @@ collision_layer = 2
 collision_mask = 10
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
-polygon = PackedVector2Array(21, 6, 21, -9, 5, -9, 5, -1, 8, -1)
+polygon = PackedVector2Array(21, 6, 21, -9, 7, -9, 7, -1, 15.9398, -1, 15.9398, 6)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

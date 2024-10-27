@@ -1,11 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://ceqfpk0kkddhv"]
+[gd_scene load_steps=6 format=3 uid="uid://ceqfpk0kkddhv"]
 
 [ext_resource type="Script" path="res://scenes/player/Pirate.cs" id="1_rrylw"]
-[ext_resource type="PackedScene" uid="uid://drlgmts4jiv7h" path="res://scenes/state machine/StateMachine.tscn" id="2_morag"]
 [ext_resource type="SpriteFrames" uid="uid://gbsu1ruv30jq" path="res://resources/captain_clown.tres" id="2_ppqr1"]
 [ext_resource type="PackedScene" uid="uid://jdeomxi3f2de" path="res://scenes/component/MovementComponent.tscn" id="2_sh2ae"]
-[ext_resource type="PackedScene" uid="uid://c1seksmprla6c" path="res://scenes/state machine/state/WanderState.tscn" id="3_ptdm7"]
-[ext_resource type="PackedScene" uid="uid://uvbufa6khnth" path="res://scenes/state machine/state/FollowState.tscn" id="4_7xpgv"]
+[ext_resource type="PackedScene" uid="uid://bo3hdb76j6kq4" path="res://scenes/component/AnimationComponent.tscn" id="3_85py4"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ypj2o"]
 radius = 7.0
@@ -16,20 +14,17 @@ collision_mask = 4
 platform_floor_layers = 0
 script = ExtResource("1_rrylw")
 
-[node name="StateMachine" parent="." node_paths=PackedStringArray("InitialState") instance=ExtResource("2_morag")]
-InitialState = NodePath("WanderState")
+[node name="MovementComponent" parent="." node_paths=PackedStringArray("_animationComponent") instance=ExtResource("2_sh2ae")]
+_animationComponent = NodePath("../AnimationComponent")
 
-[node name="WanderState" parent="StateMachine" instance=ExtResource("3_ptdm7")]
-
-[node name="FollowState" parent="StateMachine" instance=ExtResource("4_7xpgv")]
-
-[node name="MovementComponent" parent="." instance=ExtResource("2_sh2ae")]
+[node name="AnimationComponent" parent="." node_paths=PackedStringArray("_animatedSprite2D") instance=ExtResource("3_85py4")]
+_initialAnimation = "idle"
+_animatedSprite2D = NodePath("../AnimatedSprite2D")
+AnimationNames = PackedStringArray("idle", "walk")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = ExtResource("2_ppqr1")
-animation = &"idle"
-frame = 2
-frame_progress = 0.696625
+animation = &"walk"
 centered = false
 offset = Vector2(-32, -32)
 

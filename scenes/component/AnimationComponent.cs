@@ -4,6 +4,7 @@ using Godot;
 
 namespace Game.Component;
 
+[Icon("res://assets/godot icons/icon_gear.png")]
 public partial class AnimationComponent : Node
 {
 
