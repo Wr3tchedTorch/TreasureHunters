@@ -54,10 +54,12 @@ _flippingComponent = NodePath("../FlippingComponent")
 
 [node name="VelocityComponent" parent="." instance=ExtResource("6_lehh2")]
 
-[node name="FlippingComponent" parent="." node_paths=PackedStringArray("_animatedSprites", "_collisionPolygons") instance=ExtResource("7_mew35")]
+[node name="FlippingComponent" parent="." node_paths=PackedStringArray("AnimatedSprites", "Sprites", "CollisionShapes", "CollisionPolygons") instance=ExtResource("7_mew35")]
 _isSpriteLeftOriented = true
-_animatedSprites = [NodePath("../AnimatedSprite2D")]
-_collisionPolygons = [NodePath("../Area2D/CollisionPolygon2D")]
+AnimatedSprites = [NodePath("../AnimatedSprite2D")]
+Sprites = []
+CollisionShapes = []
+CollisionPolygons = [NodePath("../Area2D/CollisionPolygon2D")]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -14)

@@ -48,9 +48,6 @@ public partial class MovementComponent : Node
 	public override void _PhysicsProcess(double delta)
 	{
 
-		if (_parent is Pirate)
-			GD.Print(_velocityComponent.Velocity);
-
 		if (!IsOnFloor && _canJump && _wasOnFloor)
 			GetTree().CreateTimer(_coyoteTime).Timeout += OnCoyoteTimerTimeout;
 

@@ -1,19 +1,82 @@
-[gd_resource type="SpriteFrames" load_steps=12 format=3 uid="uid://gbsu1ruv30jq"]
+[gd_resource type="SpriteFrames" load_steps=25 format=3 uid="uid://gbsu1ruv30jq"]
 
 [ext_resource type="Texture2D" uid="uid://bw6lymmpwpy03" path="res://assets/captain clown/without sword/idle/Idle 01.png" id="1_liknu"]
+[ext_resource type="Texture2D" uid="uid://cwvllatjmt3vg" path="res://assets/captain clown/with sword/attack 1/Attack 1 01.png" id="1_vw674"]
 [ext_resource type="Texture2D" uid="uid://dglrj8iaf3a53" path="res://assets/captain clown/without sword/idle/Idle 02.png" id="2_vvh8q"]
+[ext_resource type="Texture2D" uid="uid://bv38ntatrdx3o" path="res://assets/captain clown/with sword/attack 1/Attack 1 02.png" id="2_wtdfc"]
 [ext_resource type="Texture2D" uid="uid://b4wnjfq4re3t2" path="res://assets/captain clown/without sword/idle/Idle 03.png" id="3_825t6"]
+[ext_resource type="Texture2D" uid="uid://b57rp5b2rit5f" path="res://assets/captain clown/with sword/attack 1/Attack 1 03.png" id="3_ifn2b"]
+[ext_resource type="Texture2D" uid="uid://bxfomxufrhkkx" path="res://assets/captain clown/with sword/attack 2/Attack 2 01.png" id="4_ec0sl"]
 [ext_resource type="Texture2D" uid="uid://3q04o5681ti7" path="res://assets/captain clown/without sword/idle/Idle 04.png" id="4_hgydq"]
+[ext_resource type="Texture2D" uid="uid://cmqx44w321ayh" path="res://assets/captain clown/with sword/attack 2/Attack 2 02.png" id="5_cg675"]
 [ext_resource type="Texture2D" uid="uid://t8sfodc055wb" path="res://assets/captain clown/without sword/idle/Idle 05.png" id="5_ux1nd"]
+[ext_resource type="Texture2D" uid="uid://b34s5vn70xc2b" path="res://assets/captain clown/with sword/attack 2/Attack 2 03.png" id="6_fmatn"]
 [ext_resource type="Texture2D" uid="uid://d2a5fyddhfnh0" path="res://assets/captain clown/without sword/walk/Run 01.png" id="6_rxguc"]
+[ext_resource type="Texture2D" uid="uid://cvk00qvtskqbn" path="res://assets/captain clown/with sword/attack 3/Attack 3 01.png" id="7_a5e54"]
 [ext_resource type="Texture2D" uid="uid://ryxm51qsl4dn" path="res://assets/captain clown/without sword/walk/Run 02.png" id="7_uikyc"]
 [ext_resource type="Texture2D" uid="uid://niqr6atnieqc" path="res://assets/captain clown/without sword/walk/Run 03.png" id="8_2tyob"]
+[ext_resource type="Texture2D" uid="uid://bfhrd5x14pmle" path="res://assets/captain clown/with sword/attack 3/Attack 3 02.png" id="8_x5pqs"]
 [ext_resource type="Texture2D" uid="uid://cuumrh5nmbnc8" path="res://assets/captain clown/without sword/walk/Run 04.png" id="9_4cjvx"]
+[ext_resource type="Texture2D" uid="uid://dcxvjv4gc8pcd" path="res://assets/captain clown/with sword/attack 3/Attack 3 03.png" id="9_xaasn"]
+[ext_resource type="Texture2D" uid="uid://cfbdenwm4daxp" path="res://assets/captain clown/with sword/fall/Fall Sword 01.png" id="10_8b6oi"]
 [ext_resource type="Texture2D" uid="uid://ixvonm8p32qi" path="res://assets/captain clown/without sword/walk/Run 05.png" id="10_rawk3"]
 [ext_resource type="Texture2D" uid="uid://dbnfywfu4lpjk" path="res://assets/captain clown/without sword/walk/Run 06.png" id="11_17qg7"]
+[ext_resource type="Texture2D" uid="uid://clnstso3d644" path="res://assets/captain clown/with sword/jump/Jump Sword 01.png" id="16_nhd6u"]
+[ext_resource type="Texture2D" uid="uid://bk5520p0b4hw5" path="res://assets/captain clown/with sword/jump/Jump Sword 02.png" id="17_ik12n"]
+[ext_resource type="Texture2D" uid="uid://bpud0jeu15m0e" path="res://assets/captain clown/with sword/jump/Jump Sword 03.png" id="18_6tlrj"]
 
 [resource]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_vw674")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_wtdfc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ifn2b")
+}],
+"loop": true,
+"name": &"attack 1",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_ec0sl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_cg675")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_fmatn")
+}],
+"loop": true,
+"name": &"attack 2",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_a5e54")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_x5pqs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_xaasn")
+}],
+"loop": true,
+"name": &"attack 3",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_8b6oi")
+}],
+"loop": true,
+"name": &"fall",
+"speed": 10.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("1_liknu")
@@ -32,6 +95,20 @@ animations = [{
 }],
 "loop": true,
 "name": &"idle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("16_nhd6u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_ik12n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_6tlrj")
+}],
+"loop": true,
+"name": &"jump",
 "speed": 10.0
 }, {
 "frames": [{

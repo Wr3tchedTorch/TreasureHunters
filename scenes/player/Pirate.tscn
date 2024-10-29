@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://ceqfpk0kkddhv"]
+[gd_scene load_steps=12 format=3 uid="uid://ceqfpk0kkddhv"]
 
 [ext_resource type="Script" path="res://scenes/player/Pirate.cs" id="1_rrylw"]
 [ext_resource type="SpriteFrames" uid="uid://gbsu1ruv30jq" path="res://resources/captain_clown.tres" id="2_ppqr1"]
@@ -6,6 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://cwmiiiyit4o1p" path="res://scenes/component/VelocityComponent.tscn" id="3_5o50m"]
 [ext_resource type="PackedScene" uid="uid://bo3hdb76j6kq4" path="res://scenes/component/AnimationComponent.tscn" id="3_85py4"]
 [ext_resource type="PackedScene" uid="uid://5koitgvxffeu" path="res://scenes/component/FlippingComponent.tscn" id="4_6in7o"]
+[ext_resource type="PackedScene" uid="uid://umt5dob0dhfp" path="res://scenes/component/MeleeAttackComponent.tscn" id="6_3gjy4"]
+[ext_resource type="Resource" uid="uid://di7wnfempncis" path="res://resources/attack/Pirate/attack_1.tres" id="7_uy2sn"]
+[ext_resource type="Resource" uid="uid://dd3gsuu5pjtom" path="res://resources/attack/Pirate/attack_2.tres" id="8_nhs2f"]
+[ext_resource type="Resource" uid="uid://cy00g02k2jgue" path="res://resources/attack/Pirate/attack_3.tres" id="9_gcfql"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ypj2o"]
 radius = 7.0
@@ -20,20 +24,28 @@ script = ExtResource("1_rrylw")
 _animationComponent = NodePath("../AnimationComponent")
 _velocityComponent = NodePath("../VelocityComponent")
 _flippingComponent = NodePath("../FlippingComponent")
+_jumpHeight = 90.0
 
 [node name="VelocityComponent" parent="." instance=ExtResource("3_5o50m")]
 
-[node name="FlippingComponent" parent="." node_paths=PackedStringArray("_animatedSprites") instance=ExtResource("4_6in7o")]
-_animatedSprites = [NodePath("../AnimatedSprite2D")]
+[node name="FlippingComponent" parent="." node_paths=PackedStringArray("AnimatedSprites", "Sprites", "CollisionShapes", "CollisionPolygons") instance=ExtResource("4_6in7o")]
+AnimatedSprites = [NodePath("../AnimatedSprite2D")]
+Sprites = []
+CollisionShapes = []
+CollisionPolygons = []
 
 [node name="AnimationComponent" parent="." node_paths=PackedStringArray("_animatedSprite2D") instance=ExtResource("3_85py4")]
 _initialAnimation = "idle"
 _animatedSprite2D = NodePath("../AnimatedSprite2D")
 AnimationNames = PackedStringArray("idle", "walk")
 
+[node name="MeleeAttackComponent" parent="." node_paths=PackedStringArray("_flippingComponent") instance=ExtResource("6_3gjy4")]
+_attacks = Array[Object]([ExtResource("7_uy2sn"), ExtResource("8_nhs2f"), ExtResource("9_gcfql")])
+_flippingComponent = NodePath("../FlippingComponent")
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = ExtResource("2_ppqr1")
-animation = &"walk"
+animation = &"attack 1"
 centered = false
 offset = Vector2(-32, -32)
 

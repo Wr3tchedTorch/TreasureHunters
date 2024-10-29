@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AttackResource" load_steps=3 format=3 uid="uid://cy00g02k2jgue"]
+
+[ext_resource type="PackedScene" uid="uid://dh3fy0a2hn3c7" path="res://scenes/attack/pirate/Attack3.tscn" id="1_eubaa"]
+[ext_resource type="Script" path="res://resources/attack/AttackResource.cs" id="1_iv52u"]
+
+[resource]
+script = ExtResource("1_iv52u")
+AnimationName = ""
+AttackDamage = 60.0
+AttackScene = ExtResource("1_eubaa")

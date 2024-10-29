@@ -8,30 +8,36 @@ namespace Game.Component;
 public partial class FlippingComponent : Node
 {
 
+	public bool IsParentFacingLeft;
+
 	[Export] private bool _isSpriteLeftOriented;
-	[Export] private AnimatedSprite2D[] _animatedSprites;
-	[Export] private Sprite2D[] _sprites;
-	[Export] private CollisionShape2D[] _collisionShapes;
-	[Export] private CollisionPolygon2D[] _collisionPolygons;
+	[Export] public AnimatedSprite2D[] AnimatedSprites;
+	[Export] public Sprite2D[] Sprites;
+	[Export] public CollisionShape2D[] CollisionShapes;
+	[Export] public CollisionPolygon2D[] CollisionPolygons;
+
 
 	public void FlipH(bool flip)
 	{
-		if (_sprites.Length > 0)
-			FlipSprites(flip, _sprites);
 
-		if (_animatedSprites.Length > 0)
-			FlipSprites(flip, _animatedSprites);
+		IsParentFacingLeft = flip;
 
-		if (_collisionShapes.Length > 0)
+		if (Sprites.Length > 0)
+			FlipSprites(flip, Sprites);
+
+		if (AnimatedSprites.Length > 0)
+			FlipSprites(flip, AnimatedSprites);
+
+		if (CollisionShapes.Length > 0)
 			FlipCollisionShapes(flip);
 
-		if (_collisionPolygons.Length > 0)
+		if (CollisionPolygons.Length > 0)
 			FlipCollisionPolygons(flip);
 	}
 
 	private void FlipCollisionPolygons(bool flip)
 	{
-		foreach (CollisionPolygon2D polygon in _collisionPolygons)
+		foreach (CollisionPolygon2D polygon in CollisionPolygons)
 		{
 			var scale = polygon.Scale;
 			scale.X = flip ? -1 : 1;
@@ -56,7 +62,7 @@ public partial class FlippingComponent : Node
 
 	private void FlipCollisionShapes(bool flip)
 	{
-		foreach (CollisionFlipper collisionShape in _collisionShapes.Cast<CollisionFlipper>())
+		foreach (CollisionFlipper collisionShape in CollisionShapes.Cast<CollisionFlipper>())
 			collisionShape.Flip(flip);
 	}
 }
