@@ -2,6 +2,7 @@ using Godot;
 
 namespace Game.Component;
 
+[Icon("res://assets/godot icons/icon_gear.png")]
 public partial class VelocityComponent : Node
 {
 
@@ -35,10 +36,12 @@ public partial class VelocityComponent : Node
 		Velocity = new Vector2(Velocity.X, yTo);
 	}
 
-	public void Accelerate(Vector2 toDir, float speed)
+	public void AccelerateX(float toDir, float speed)
 	{
 
-		Velocity = Velocity.MoveToward(toDir.Normalized() * speed, _accel);
+		var _velocity = Velocity;
+		_velocity.X = Mathf.MoveToward(_velocity.X, toDir * speed, _accel);
+		Velocity = _velocity;
 	}
 
 	public void Decelerate()

@@ -20,6 +20,7 @@ public partial class Pirate : CharacterBody2D
 
         if (Input.IsActionPressed("jump"))
             _movementComponent.Jump();
+
         _movementComponent.Walk(GetHorizontalMovementDirection());
     }
 

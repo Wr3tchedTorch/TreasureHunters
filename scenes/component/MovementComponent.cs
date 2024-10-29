@@ -1,3 +1,4 @@
+using Game.Player;
 using Godot;
 
 namespace Game.Component;
@@ -7,6 +8,7 @@ public partial class MovementComponent : Node
 {
 
 	public float Speed { get => _speed ?? _defaultSpeed; set => _speed = value; }
+	public bool IsOnFloor => _parent.IsOnFloor();
 
 	private readonly string ANIMATION_IDLE = "idle";
 	private readonly string ANIMATION_WALK = "walk";
@@ -31,6 +33,7 @@ public partial class MovementComponent : Node
 	private float _jumpGravity;
 	private float _fallGravity;
 	private bool _canJump;
+	private bool _wasOnFloor;
 
 	public override void _Ready()
 	{
@@ -44,16 +47,25 @@ public partial class MovementComponent : Node
 
 	public override void _PhysicsProcess(double delta)
 	{
-		if (!_parent.IsOnFloor() && _canJump)
+
+		if (_parent is Pirate)
+			GD.Print(_velocityComponent.Velocity);
+
+		if (!IsOnFloor && _canJump && _wasOnFloor)
 			GetTree().CreateTimer(_coyoteTime).Timeout += OnCoyoteTimerTimeout;
 
-		if (_parent.IsOnFloor())
+		if (IsOnFloor)
 		{
-			_velocityComponent.OverrideVelocityY(0);
+
 			_canJump = true;
+			if (!_wasOnFloor)
+				_velocityComponent.OverrideVelocityY(0);
 		}
 
-		_velocityComponent.OverrideVelocityY(_velocityComponent.Velocity.Y + GetGravity() * (float)delta);
+		if (!IsOnFloor)
+			_velocityComponent.OverrideVelocityY(_velocityComponent.Velocity.Y + GetGravity() * (float)delta);
+
+		_wasOnFloor = IsOnFloor;
 	}
 
 	public void Walk(float direction)
@@ -69,7 +81,7 @@ public partial class MovementComponent : Node
 		_animationComponent.SetAnimation(ANIMATION_WALK);
 		_flippingComponent.FlipH(direction == -1);
 
-		_velocityComponent.Accelerate(new Vector2(direction, _velocityComponent.Velocity.Y), Speed);
+		_velocityComponent.AccelerateX(direction, Speed);
 	}
 
 	public void Jump()
@@ -80,9 +92,6 @@ public partial class MovementComponent : Node
 		_canJump = false;
 		_velocityComponent.OverrideVelocityY(_jumpVelocity);
 	}
-
-	public bool ParentIsOnFloor()
-		=> _parent.IsOnFloor();
 
 	private float GetGravity()
 	{

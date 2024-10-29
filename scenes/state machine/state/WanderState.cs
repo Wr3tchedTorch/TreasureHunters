@@ -46,7 +46,7 @@ public partial class WanderState : BaseState
 
 	public override void PhysicsUpdate(double delta)
 	{
-		if (!_movementComponent.ParentIsOnFloor())
+		if (!_movementComponent.IsOnFloor)
 			return;
 
 		_movementComponent.Walk(_direction);
@@ -54,10 +54,9 @@ public partial class WanderState : BaseState
 
 	private async void Turn(bool isIgnoringCanTurn)
 	{
-		if (!_movementComponent.ParentIsOnFloor() || (!isIgnoringCanTurn && !_canTurn))
+		if (!_movementComponent.IsOnFloor || (!isIgnoringCanTurn && !_canTurn))
 			return;
 
-		GD.Print($"{nameof(isIgnoringCanTurn)}: {isIgnoringCanTurn} | {nameof(_canTurn)}: {_canTurn}");
 		_previousDirection = _direction;
 		_direction = 0;
 

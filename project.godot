@@ -21,8 +21,8 @@ EmbedGameAutoload="*res://addons/fabimakesgames.embed_game/embed_game_autoload.g
 
 [display]
 
-window/size/viewport_width=1920
-window/size/viewport_height=1080
+window/size/viewport_width=1280
+window/size/viewport_height=720
 window/stretch/mode="canvas_items"
 
 [dotnet]

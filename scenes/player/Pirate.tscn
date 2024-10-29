@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://ceqfpk0kkddhv"]
+[gd_scene load_steps=8 format=3 uid="uid://ceqfpk0kkddhv"]
 
 [ext_resource type="Script" path="res://scenes/player/Pirate.cs" id="1_rrylw"]
 [ext_resource type="SpriteFrames" uid="uid://gbsu1ruv30jq" path="res://resources/captain_clown.tres" id="2_ppqr1"]
 [ext_resource type="PackedScene" uid="uid://jdeomxi3f2de" path="res://scenes/component/MovementComponent.tscn" id="2_sh2ae"]
+[ext_resource type="PackedScene" uid="uid://cwmiiiyit4o1p" path="res://scenes/component/VelocityComponent.tscn" id="3_5o50m"]
 [ext_resource type="PackedScene" uid="uid://bo3hdb76j6kq4" path="res://scenes/component/AnimationComponent.tscn" id="3_85py4"]
+[ext_resource type="PackedScene" uid="uid://5koitgvxffeu" path="res://scenes/component/FlippingComponent.tscn" id="4_6in7o"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ypj2o"]
 radius = 7.0
@@ -14,8 +16,15 @@ collision_mask = 4
 platform_floor_layers = 0
 script = ExtResource("1_rrylw")
 
-[node name="MovementComponent" parent="." node_paths=PackedStringArray("_animationComponent") instance=ExtResource("2_sh2ae")]
+[node name="MovementComponent" parent="." node_paths=PackedStringArray("_animationComponent", "_velocityComponent", "_flippingComponent") instance=ExtResource("2_sh2ae")]
 _animationComponent = NodePath("../AnimationComponent")
+_velocityComponent = NodePath("../VelocityComponent")
+_flippingComponent = NodePath("../FlippingComponent")
+
+[node name="VelocityComponent" parent="." instance=ExtResource("3_5o50m")]
+
+[node name="FlippingComponent" parent="." node_paths=PackedStringArray("_animatedSprites") instance=ExtResource("4_6in7o")]
+_animatedSprites = [NodePath("../AnimatedSprite2D")]
 
 [node name="AnimationComponent" parent="." node_paths=PackedStringArray("_animatedSprite2D") instance=ExtResource("3_85py4")]
 _initialAnimation = "idle"
